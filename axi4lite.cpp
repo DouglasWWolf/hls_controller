@@ -13,23 +13,23 @@
 //=========================================================================================================
 uint8_t Caxi4lite::write(const uint32_t addr, const uint32_t data)
 {
-	const int65 rw_bit = ((int65)1) << 64;
-	int65 value = rw_bit | ((int65)data) << 32 | addr;
-	int34 response = 0;
+    const int65 rw_bit = ((int65)1) << 64;
+    int65 value = rw_bit | ((int65)data) << 32 | addr;
+    int34 response = 0;
 
-	for (int i=0; i<2; ++i)
-	{
-		#pragma HLS pipeline off
-		switch(i)
-		{
-		case 0:	_cmd_fifo.write(value);
-				break;
-		case 1:	response = _rsp_fifo.read();
-				break;
-		}
-	}
+    for (int i=0; i<2; ++i)
+    {
+        #pragma HLS pipeline off
+        switch(i)
+        {
+        case 0:	_cmd_fifo.write(value);
+                break;
+        case 1: response = _rsp_fifo.read();
+                break;
+        }
+    }
 
-	return (uint8_t)(response >> 32);
+    return (uint8_t)(response >> 32);
 }
 //=========================================================================================================
 
@@ -44,21 +44,21 @@ uint8_t Caxi4lite::write(const uint32_t addr, const uint32_t data)
 //=========================================================================================================
 uint8_t Caxi4lite::read(const uint32_t addr, uint32_t* p_data)
 {
-	int34 response = 0;
+    int34 response = 0;
 
-	for (int i=0; i<2; ++i)
-	{
-		#pragma HLS pipeline off
-		switch(i)
-		{
-		case 0:	_cmd_fifo.write(addr);
-				break;
-		case 1:	response = _rsp_fifo.read();
+    for (int i=0; i<2; ++i)
+    {
+        #pragma HLS pipeline off
+        switch(i)
+        {
+        case 0:	_cmd_fifo.write(addr);
+                break;
+        case 1:	response = _rsp_fifo.read();
                 *p_data = (uint32_t)(response & 0xFFFFFFFF);
-				break;
-		}
-	}
+                break;
+        }
+    }
 
-	return (uint8_t)(response >> 32);
+    return (uint8_t)(response >> 32);
 }
 //=========================================================================================================
