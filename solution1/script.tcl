@@ -7,9 +7,8 @@ open_project hls_controller
 set_top controller
 add_files hls_controller/axi4lite.cpp
 add_files hls_controller/controller.cpp
-add_files hls_controller/test.cpp
 add_files hls_controller/uart.cpp
-add_files -tb hls_controller/testbench.cpp
+add_files -tb hls_controller/testbench.cpp -cflags "-Wno-unknown-pragmas" -csimflags "-Wno-unknown-pragmas"
 open_solution "solution1" -flow_target vivado
 set_part {xc7a100t-csg324-1}
 create_clock -period 10 -name default

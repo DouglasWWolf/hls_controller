@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
   <source>
-    <originFiles name="axi4lite.cpp" path="C:\fpga\hls_controller\axi4lite.cpp"/>
-    <originFiles name="controller.cpp" path="C:\fpga\hls_controller\controller.cpp"/>
-    <originFiles name="test.cpp" path="C:\fpga\hls_controller\test.cpp"/>
     <originFiles name="uart.cpp" path="C:\fpga\hls_controller\uart.cpp"/>
+    <originFiles name="controller.cpp" path="C:\fpga\hls_controller\controller.cpp"/>
+    <originFiles name="axi4lite.cpp" path="C:\fpga\hls_controller\axi4lite.cpp"/>
   </source>
   <testbench>
     <originFiles name="testbench.cpp" path="C:\fpga\hls_controller\testbench.cpp"/>

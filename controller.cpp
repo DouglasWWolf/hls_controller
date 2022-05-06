@@ -7,5 +7,13 @@ CUART uart;
 
 void controller()
 {
-    uart.uprint("This is a new long message test via the new uprint!\n");
+    sequenced:
+    {
+        #pragma HLS protocol
+        uart.uprint("This is a new long message test via the new uprint: %i!\n", -1);
+        uart.uprint("This is a new long message test via the new uprint: #%6i#!\n", 123);
+        uart.uprint("This is a new long message test via the new uprint: #%6i#!\n", -4321);
+
+    }
+
 }

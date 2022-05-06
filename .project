@@ -57,11 +57,6 @@
 			<location>C:/fpga/hls_controller/controller.cpp</location>
 		</link>
 		<link>
-			<name>source/test.cpp</name>
-			<type>1</type>
-			<location>C:/fpga/hls_controller/test.cpp</location>
-		</link>
-		<link>
 			<name>source/uart.cpp</name>
 			<type>1</type>
 			<location>C:/fpga/hls_controller/uart.cpp</location>

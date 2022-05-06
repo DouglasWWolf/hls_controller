@@ -7,10 +7,6 @@
 #include <stdio.h>
 
 
-extern Caxi4lite axi;
-
-hls::stream<uint8_t> outstream;
-
 //=========================================================================================================
 // uprint() - Analog of C function printf().  Supports %d, %i, %u, %c, %x %X
 //=========================================================================================================
@@ -244,16 +240,6 @@ void CUART::write_char(const char c)
 
 void CUART::write_byte(const uint8_t c)
 {
-#if 0
-    loop1: while (true)
-    {
-        #pragma HLS pipeline off
-        if (axi.write(0x40600004, c) == 0) break;
-    }
-#else
-    outstream.write(c);
-#endif
-
-   // axi.write(0x40600004, c);
-
+    _xmit_fifo.write(c);
+	//printf("%c", c);
 }
