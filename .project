@@ -57,6 +57,21 @@
 			<location>C:/fpga/hls_controller/controller.cpp</location>
 		</link>
 		<link>
+			<name>source/test.cpp</name>
+			<type>1</type>
+			<location>C:/fpga/hls_controller/test.cpp</location>
+		</link>
+		<link>
+			<name>source/uart.cpp</name>
+			<type>1</type>
+			<location>C:/fpga/hls_controller/uart.cpp</location>
+		</link>
+		<link>
+			<name>testbench/testbench.cpp</name>
+			<type>1</type>
+			<location>C:/fpga/hls_controller/testbench.cpp</location>
+		</link>
+		<link>
 			<name>solution1/constraints/.xml.directive</name>
 			<type>1</type>
 			<location>C:/fpga/hls_controller/solution1/solution1.directive</location>
