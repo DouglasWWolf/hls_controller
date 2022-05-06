@@ -124,6 +124,7 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     char    buffer[BUFFER_WIDTH];
     bool    is_negative = false;
     char    digit;
+    uint8_t i;
 
     static const uint32_t powers[] =
     {
@@ -147,7 +148,11 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     if (width > BUFFER_WIDTH - 1) width = BUFFER_WIDTH - 1;
 
     // Fill the output buffer with either spaces or ASCII zeros
-    for (uint8_t ia = 0; ia < BUFFER_WIDTH - 1; ++ia) buffer[ia] = ' ';
+    for (i = 0; i < BUFFER_WIDTH - 1; ++i) 
+    {
+        #pragma HLS unroll
+        buffer[i] = ' ';
+    }
 
     // Ensure that there's a nul-byte at the end of the buffer
     buffer[BUFFER_WIDTH - 1] = 0;
@@ -181,7 +186,7 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
         else
         {
             digit = '0';
-            loop7: for (int ix=0; ix<9; ++ix)
+            loop7: for (i=0; i<9; ++i)
             {
                 #pragma HLS pipeline off
                 if (value < power_of_ten) break;
@@ -223,10 +228,10 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     }
 
     // And write the characters to the UART
-    loop2: for (uint8_t ib=0; ib<string_length; ++ib)
+    loop2: for (i=0; i<string_length; ++i)
     {
         #pragma HLS pipeline off
-        char c = buffer[msd_index + ib];
+        char c = buffer[msd_index + i];
         write_char(c);        
     }
 }

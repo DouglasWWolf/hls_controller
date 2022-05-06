@@ -5,6 +5,21 @@
                 <option name="name" value="controller"/>
             </pragma>
         </directive>
+        <directive functionName="controller" label="" functionLabel="">
+            <pragma name="TOP">
+                <option name="name" value="controller"/>
+            </pragma>
+        </directive>
+        <directive functionName="controller" label="" functionLabel="">
+            <pragma name="TOP">
+                <option name="name" value="controller"/>
+            </pragma>
+        </directive>
+        <directive functionName="controller" label="" functionLabel="">
+            <pragma name="TOP">
+                <option name="name" value="controller"/>
+            </pragma>
+        </directive>
     </sourceFile>
 </AutoPilot:ProjectResources>
 

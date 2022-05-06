@@ -10,29 +10,34 @@ CUART uart;
 
 void controller()
 {
-    uint32_t loop = 1;
-    uint32_t a1 = loop-1;
-    uint32_t a2 = loop+123;
-    uint32_t a3 = loop-4321;
-
-    for (int i=0; i<4; ++i)
+    for (uint32_t loop=0; loop<20; ++loop)
     {
         #pragma HLS pipeline off
 
-        switch(i) 
+        uint32_t a1 = loop-1;
+        uint32_t a2 = loop+123;
+        uint32_t a3 = loop-4321;
+
+        uart.print("\nStarting loop #%i\n", loop+1);
+
+        for (int i=0; i<4; ++i)
         {
-        case 0: uart.print("This is a new long message test via the new uprint: %i!\n", a1);
-                break;
+            #pragma HLS pipeline off
 
-        case 1: uart.print("This is a new long message test via the new uprint: #%6i#!\n", a2);
-                break;
+            switch(i) 
+            {
+            case 0: uart.print("This is a new long message test via the new uprint: %i!\n", a1);
+                    break;
 
-        case 2: uart.print("This is a new long message test via the new uprint: #%6i#!\n", a3);
-                break;
+            case 1: uart.print("This is a new long message test via the new uprint: #%6i#!\n", a2);
+                    break;
 
-        case 3: uart.print("In hex: %i %u 0x%08X\n", a1, a1, a1);
-                break;
+            case 2: uart.print("This is a new long message test via the new uprint: #%6i#!\n", a3);
+                    break;
+
+            case 3: uart.print("In hex: %i %u 0x%08X\n", a1, a1, a1);
+                    break;
+            }
         }
     }
-
 }
