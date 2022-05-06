@@ -23,7 +23,8 @@
       "config_export -display_name=hls_controller",
       "config_export -format=ip_catalog",
       "config_export -output=C:\/fpga\/ip_repo\/hls_controller.zip",
-      "config_export -rtl=verilog"
+      "config_export -rtl=verilog",
+      "config_unroll -tripcount_threshold=1"
     ],
     "DirectiveTcl": ["set_directive_top controller -name controller"],
     "ProfileOption": "0",
@@ -58,57 +59,60 @@
       "..\/axi4lite.cpp"
     ],
     "Vhdl": [
-      "impl\/vhdl\/controller_flow_control_loop_pipe_sequential_init.vhd",
-      "impl\/vhdl\/controller_mac_muladd_4ns_11s_13ns_24_4_1.vhd",
       "impl\/vhdl\/controller_mac_muladd_9ns_25s_32ns_32_4_1.vhd",
       "impl\/vhdl\/controller_mac_muladd_13ns_21s_32ns_32_4_1.vhd",
       "impl\/vhdl\/controller_mac_muladd_16ns_18s_32ns_32_4_1.vhd",
       "impl\/vhdl\/controller_mac_muladd_19ns_15s_32ns_32_4_1.vhd",
       "impl\/vhdl\/controller_mac_muladd_23ns_11s_32ns_32_4_1.vhd",
       "impl\/vhdl\/controller_mul_3ns_31s_32_2_1.vhd",
-      "impl\/vhdl\/controller_mul_6ns_8ns_13_1_1.vhd",
       "impl\/vhdl\/controller_mul_6ns_28s_32_3_1.vhd",
       "impl\/vhdl\/controller_mul_26ns_8s_32_1_1.vhd",
       "impl\/vhdl\/controller_mul_32ns_34ns_44_2_1.vhd",
       "impl\/vhdl\/controller_mul_32ns_34ns_65_2_1.vhd",
-      "impl\/vhdl\/controller_mul_mul_13ns_14ns_27_4_1.vhd",
-      "impl\/vhdl\/controller_mux_32_8_1_1.vhd",
       "impl\/vhdl\/controller_mux_42_32_1_1.vhd",
-      "impl\/vhdl\/controller_uprint.vhd",
-      "impl\/vhdl\/controller_uprint_1.vhd",
-      "impl\/vhdl\/controller_uprint_1_p_str_2_ROM_AUTO_1R.vhd",
-      "impl\/vhdl\/controller_uprint_Pipeline_loop1.vhd",
-      "impl\/vhdl\/controller_uprint_Pipeline_loop1_p_str_ROM_AUTO_1R.vhd",
-      "impl\/vhdl\/controller_urem_6ns_5ns_4_10_1.vhd",
+      "impl\/vhdl\/controller_mux_42_32_1_1_x.vhd",
+      "impl\/vhdl\/controller_mux_164_8_1_1.vhd",
+      "impl\/vhdl\/controller_print.vhd",
+      "impl\/vhdl\/controller_print_1.vhd",
+      "impl\/vhdl\/controller_print_1_Pipeline_loop1.vhd",
+      "impl\/vhdl\/controller_print_1_Pipeline_loop1_p_str_2_ROM_AUTO_1R.vhd",
+      "impl\/vhdl\/controller_print_2.vhd",
+      "impl\/vhdl\/controller_print_2_Pipeline_loop1.vhd",
+      "impl\/vhdl\/controller_print_2_Pipeline_loop1_p_str_ROM_AUTO_1R.vhd",
+      "impl\/vhdl\/controller_print_Pipeline_loop1.vhd",
+      "impl\/vhdl\/controller_print_Pipeline_loop1_p_str_3_ROM_AUTO_1R.vhd",
       "impl\/vhdl\/controller_write_dec.vhd",
+      "impl\/vhdl\/controller_write_hex.vhd",
       "impl\/vhdl\/controller.vhd"
     ],
     "Verilog": [
-      "impl\/verilog\/controller_flow_control_loop_pipe_sequential_init.v",
-      "impl\/verilog\/controller_mac_muladd_4ns_11s_13ns_24_4_1.v",
       "impl\/verilog\/controller_mac_muladd_9ns_25s_32ns_32_4_1.v",
       "impl\/verilog\/controller_mac_muladd_13ns_21s_32ns_32_4_1.v",
       "impl\/verilog\/controller_mac_muladd_16ns_18s_32ns_32_4_1.v",
       "impl\/verilog\/controller_mac_muladd_19ns_15s_32ns_32_4_1.v",
       "impl\/verilog\/controller_mac_muladd_23ns_11s_32ns_32_4_1.v",
       "impl\/verilog\/controller_mul_3ns_31s_32_2_1.v",
-      "impl\/verilog\/controller_mul_6ns_8ns_13_1_1.v",
       "impl\/verilog\/controller_mul_6ns_28s_32_3_1.v",
       "impl\/verilog\/controller_mul_26ns_8s_32_1_1.v",
       "impl\/verilog\/controller_mul_32ns_34ns_44_2_1.v",
       "impl\/verilog\/controller_mul_32ns_34ns_65_2_1.v",
-      "impl\/verilog\/controller_mul_mul_13ns_14ns_27_4_1.v",
-      "impl\/verilog\/controller_mux_32_8_1_1.v",
       "impl\/verilog\/controller_mux_42_32_1_1.v",
-      "impl\/verilog\/controller_uprint.v",
-      "impl\/verilog\/controller_uprint_1.v",
-      "impl\/verilog\/controller_uprint_1_p_str_2_ROM_AUTO_1R.dat",
-      "impl\/verilog\/controller_uprint_1_p_str_2_ROM_AUTO_1R.v",
-      "impl\/verilog\/controller_uprint_Pipeline_loop1.v",
-      "impl\/verilog\/controller_uprint_Pipeline_loop1_p_str_ROM_AUTO_1R.dat",
-      "impl\/verilog\/controller_uprint_Pipeline_loop1_p_str_ROM_AUTO_1R.v",
-      "impl\/verilog\/controller_urem_6ns_5ns_4_10_1.v",
+      "impl\/verilog\/controller_mux_42_32_1_1_x.v",
+      "impl\/verilog\/controller_mux_164_8_1_1.v",
+      "impl\/verilog\/controller_print.v",
+      "impl\/verilog\/controller_print_1.v",
+      "impl\/verilog\/controller_print_1_Pipeline_loop1.v",
+      "impl\/verilog\/controller_print_1_Pipeline_loop1_p_str_2_ROM_AUTO_1R.dat",
+      "impl\/verilog\/controller_print_1_Pipeline_loop1_p_str_2_ROM_AUTO_1R.v",
+      "impl\/verilog\/controller_print_2.v",
+      "impl\/verilog\/controller_print_2_Pipeline_loop1.v",
+      "impl\/verilog\/controller_print_2_Pipeline_loop1_p_str_ROM_AUTO_1R.dat",
+      "impl\/verilog\/controller_print_2_Pipeline_loop1_p_str_ROM_AUTO_1R.v",
+      "impl\/verilog\/controller_print_Pipeline_loop1.v",
+      "impl\/verilog\/controller_print_Pipeline_loop1_p_str_3_ROM_AUTO_1R.dat",
+      "impl\/verilog\/controller_print_Pipeline_loop1_p_str_3_ROM_AUTO_1R.v",
       "impl\/verilog\/controller_write_dec.v",
+      "impl\/verilog\/controller_write_hex.v",
       "impl\/verilog\/controller.v"
     ],
     "IpMisc": ["impl\/misc\/logo.png"],
@@ -229,28 +233,69 @@
       "ModuleName": "controller",
       "Instances": [
         {
-          "ModuleName": "uprint",
-          "InstanceName": "grp_uprint_fu_36",
+          "ModuleName": "print_1",
+          "InstanceName": "grp_print_1_fu_54",
           "Instances": [{
-              "ModuleName": "uprint_Pipeline_loop1",
-              "InstanceName": "grp_uprint_Pipeline_loop1_fu_32",
-              "Instances": [{
+              "ModuleName": "print_1_Pipeline_loop1",
+              "InstanceName": "grp_print_1_Pipeline_loop1_fu_40",
+              "Instances": [
+                {
+                  "ModuleName": "write_hex",
+                  "InstanceName": "grp_write_hex_fu_203"
+                },
+                {
                   "ModuleName": "write_dec",
-                  "InstanceName": "grp_write_dec_fu_149"
-                }]
+                  "InstanceName": "grp_write_dec_fu_215"
+                }
+              ]
             }]
         },
         {
-          "ModuleName": "uprint_1",
-          "InstanceName": "grp_uprint_1_fu_44",
+          "ModuleName": "print",
+          "InstanceName": "grp_print_fu_65",
           "Instances": [{
-              "ModuleName": "write_dec",
-              "InstanceName": "grp_write_dec_fu_213"
+              "ModuleName": "print_Pipeline_loop1",
+              "InstanceName": "grp_print_Pipeline_loop1_fu_30",
+              "Instances": [
+                {
+                  "ModuleName": "write_hex",
+                  "InstanceName": "grp_write_hex_fu_199"
+                },
+                {
+                  "ModuleName": "write_dec",
+                  "InstanceName": "grp_write_dec_fu_211"
+                }
+              ]
+            }]
+        },
+        {
+          "ModuleName": "print_2",
+          "InstanceName": "grp_print_2_fu_73",
+          "Instances": [{
+              "ModuleName": "print_2_Pipeline_loop1",
+              "InstanceName": "grp_print_2_Pipeline_loop1_fu_30",
+              "Instances": [
+                {
+                  "ModuleName": "write_hex",
+                  "InstanceName": "grp_write_hex_fu_193"
+                },
+                {
+                  "ModuleName": "write_dec",
+                  "InstanceName": "grp_write_dec_fu_205"
+                }
+              ]
             }]
         }
       ]
     },
     "Info": {
+      "write_hex": {
+        "FunctionProtocol": "ap_ctrl_hs",
+        "isTaskLevelControl": "0",
+        "isPipelined": "0",
+        "isCombinational": "0",
+        "isOneStateSeq": "0"
+      },
       "write_dec": {
         "FunctionProtocol": "ap_ctrl_hs",
         "isTaskLevelControl": "0",
@@ -258,21 +303,42 @@
         "isCombinational": "0",
         "isOneStateSeq": "0"
       },
-      "uprint_Pipeline_loop1": {
+      "print_1_Pipeline_loop1": {
         "FunctionProtocol": "ap_ctrl_hs",
         "isTaskLevelControl": "0",
         "isPipelined": "0",
         "isCombinational": "0",
         "isOneStateSeq": "0"
       },
-      "uprint": {
+      "print_1": {
         "FunctionProtocol": "ap_ctrl_hs",
         "isTaskLevelControl": "0",
         "isPipelined": "0",
         "isCombinational": "0",
         "isOneStateSeq": "0"
       },
-      "uprint_1": {
+      "print_Pipeline_loop1": {
+        "FunctionProtocol": "ap_ctrl_hs",
+        "isTaskLevelControl": "0",
+        "isPipelined": "0",
+        "isCombinational": "0",
+        "isOneStateSeq": "0"
+      },
+      "print": {
+        "FunctionProtocol": "ap_ctrl_hs",
+        "isTaskLevelControl": "0",
+        "isPipelined": "0",
+        "isCombinational": "0",
+        "isOneStateSeq": "0"
+      },
+      "print_2_Pipeline_loop1": {
+        "FunctionProtocol": "ap_ctrl_hs",
+        "isTaskLevelControl": "0",
+        "isPipelined": "0",
+        "isCombinational": "0",
+        "isOneStateSeq": "0"
+      },
+      "print_2": {
         "FunctionProtocol": "ap_ctrl_hs",
         "isTaskLevelControl": "0",
         "isPipelined": "0",
@@ -288,129 +354,7 @@
       }
     },
     "Metrics": {
-      "write_dec": {
-        "Latency": {
-          "LatencyBest": "22",
-          "LatencyAvg": "",
-          "LatencyWorst": "371",
-          "PipelineIIMin": "22",
-          "PipelineIIMax": "371",
-          "PipelineII": "22 ~ 371",
-          "PipelineDepth": "",
-          "PipelineType": "no"
-        },
-        "Timing": {
-          "Target": "10.00",
-          "Uncertainty": "2.70",
-          "Estimate": "7.138"
-        },
-        "Loops": [{
-            "Name": "loop2",
-            "TripCount": "",
-            "LatencyMin": "10",
-            "LatencyMax": "310",
-            "Latency": "10 ~ 310",
-            "PipelineII": "",
-            "PipelineDepth": "10"
-          }],
-        "Area": {
-          "DSP": "34",
-          "AVAIL_DSP": "240",
-          "UTIL_DSP": "14",
-          "FF": "3216",
-          "AVAIL_FF": "126800",
-          "UTIL_FF": "2",
-          "LUT": "3097",
-          "AVAIL_LUT": "63400",
-          "UTIL_LUT": "4",
-          "BRAM_18K": "0",
-          "AVAIL_BRAM": "270",
-          "UTIL_BRAM": "0",
-          "URAM": "0",
-          "AVAIL_URAM": "0",
-          "UTIL_URAM": "0"
-        }
-      },
-      "uprint_Pipeline_loop1": {
-        "Latency": {
-          "LatencyBest": "5",
-          "LatencyAvg": "",
-          "LatencyWorst": "48004",
-          "PipelineIIMin": "5",
-          "PipelineIIMax": "48004",
-          "PipelineII": "5 ~ 48004",
-          "PipelineDepth": "",
-          "PipelineType": "no"
-        },
-        "Timing": {
-          "Target": "10.00",
-          "Uncertainty": "2.70",
-          "Estimate": "7.260"
-        },
-        "Loops": [{
-            "Name": "loop1",
-            "TripCount": "",
-            "LatencyMin": "3",
-            "LatencyMax": "48002",
-            "Latency": "3 ~ 48002",
-            "PipelineII": "",
-            "PipelineDepthMin": "3",
-            "PipelineDepthMax": "375",
-            "PipelineDepth": "3 ~ 375"
-          }],
-        "Area": {
-          "BRAM_18K": "0",
-          "AVAIL_BRAM": "270",
-          "UTIL_BRAM": "0",
-          "DSP": "34",
-          "AVAIL_DSP": "240",
-          "UTIL_DSP": "14",
-          "FF": "3529",
-          "AVAIL_FF": "126800",
-          "UTIL_FF": "2",
-          "LUT": "3534",
-          "AVAIL_LUT": "63400",
-          "UTIL_LUT": "5",
-          "URAM": "0",
-          "AVAIL_URAM": "0",
-          "UTIL_URAM": "0"
-        }
-      },
-      "uprint": {
-        "Latency": {
-          "LatencyBest": "7",
-          "LatencyAvg": "",
-          "LatencyWorst": "48006",
-          "PipelineIIMin": "7",
-          "PipelineIIMax": "48006",
-          "PipelineII": "7 ~ 48006",
-          "PipelineDepth": "",
-          "PipelineType": "no"
-        },
-        "Timing": {
-          "Target": "10.00",
-          "Uncertainty": "2.70",
-          "Estimate": "7.260"
-        },
-        "Area": {
-          "BRAM_18K": "0",
-          "AVAIL_BRAM": "270",
-          "UTIL_BRAM": "0",
-          "DSP": "34",
-          "AVAIL_DSP": "240",
-          "UTIL_DSP": "14",
-          "FF": "3534",
-          "AVAIL_FF": "126800",
-          "UTIL_FF": "2",
-          "LUT": "3584",
-          "AVAIL_LUT": "63400",
-          "UTIL_LUT": "5",
-          "URAM": "0",
-          "AVAIL_URAM": "0",
-          "UTIL_URAM": "0"
-        }
-      },
-      "uprint_1": {
+      "write_hex": {
         "Latency": {
           "LatencyBest": "",
           "LatencyAvg": "",
@@ -422,35 +366,284 @@
         "Timing": {
           "Target": "10.00",
           "Uncertainty": "2.70",
-          "Estimate": "7.138"
+          "Estimate": "7.153"
+        },
+        "Loops": [{
+            "Name": "loop2",
+            "TripCount": "",
+            "Latency": "",
+            "PipelineII": "",
+            "PipelineDepth": "2"
+          }],
+        "Area": {
+          "FF": "215",
+          "AVAIL_FF": "126800",
+          "UTIL_FF": "~0",
+          "LUT": "721",
+          "AVAIL_LUT": "63400",
+          "UTIL_LUT": "1",
+          "BRAM_18K": "0",
+          "AVAIL_BRAM": "270",
+          "UTIL_BRAM": "0",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
+          "URAM": "0",
+          "AVAIL_URAM": "0",
+          "UTIL_URAM": "0"
+        }
+      },
+      "write_dec": {
+        "Latency": {
+          "LatencyBest": "22",
+          "LatencyAvg": "",
+          "LatencyWorst": "82",
+          "PipelineIIMin": "22",
+          "PipelineIIMax": "82",
+          "PipelineII": "22 ~ 82",
+          "PipelineDepth": "",
+          "PipelineType": "no"
+        },
+        "Timing": {
+          "Target": "10.00",
+          "Uncertainty": "2.70",
+          "Estimate": "7.290"
+        },
+        "Loops": [{
+            "Name": "loop2",
+            "TripCount": "",
+            "LatencyMin": "2",
+            "LatencyMax": "62",
+            "Latency": "2 ~ 62",
+            "PipelineII": "",
+            "PipelineDepth": "2"
+          }],
+        "Area": {
+          "FF": "2376",
+          "AVAIL_FF": "126800",
+          "UTIL_FF": "1",
+          "LUT": "8435",
+          "AVAIL_LUT": "63400",
+          "UTIL_LUT": "13",
+          "BRAM_18K": "0",
+          "AVAIL_BRAM": "270",
+          "UTIL_BRAM": "0",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
+          "URAM": "0",
+          "AVAIL_URAM": "0",
+          "UTIL_URAM": "0"
+        }
+      },
+      "print_1_Pipeline_loop1": {
+        "Latency": {
+          "LatencyBest": "",
+          "LatencyAvg": "",
+          "LatencyWorst": "",
+          "PipelineII": "",
+          "PipelineDepth": "",
+          "PipelineType": "no"
+        },
+        "Timing": {
+          "Target": "10.00",
+          "Uncertainty": "2.70",
+          "Estimate": "7.290"
         },
         "Loops": [{
             "Name": "loop1",
             "TripCount": "",
             "Latency": "",
             "PipelineII": "",
-            "PipelineDepth": "",
-            "Loops": [{
-                "Name": "loop3",
-                "TripCount": "",
-                "Latency": "",
-                "PipelineII": "",
-                "PipelineDepth": "3"
-              }]
+            "PipelineDepth": ""
           }],
         "Area": {
           "BRAM_18K": "0",
           "AVAIL_BRAM": "270",
           "UTIL_BRAM": "0",
-          "DSP": "34",
-          "AVAIL_DSP": "240",
-          "UTIL_DSP": "14",
-          "FF": "3894",
+          "FF": "3343",
           "AVAIL_FF": "126800",
-          "UTIL_FF": "3",
-          "LUT": "3974",
+          "UTIL_FF": "2",
+          "LUT": "10247",
           "AVAIL_LUT": "63400",
-          "UTIL_LUT": "6",
+          "UTIL_LUT": "16",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
+          "URAM": "0",
+          "AVAIL_URAM": "0",
+          "UTIL_URAM": "0"
+        }
+      },
+      "print_1": {
+        "Latency": {
+          "LatencyBest": "",
+          "LatencyAvg": "",
+          "LatencyWorst": "",
+          "PipelineII": "",
+          "PipelineDepth": "",
+          "PipelineType": "no"
+        },
+        "Timing": {
+          "Target": "10.00",
+          "Uncertainty": "2.70",
+          "Estimate": "7.290"
+        },
+        "Area": {
+          "BRAM_18K": "0",
+          "AVAIL_BRAM": "270",
+          "UTIL_BRAM": "0",
+          "FF": "3349",
+          "AVAIL_FF": "126800",
+          "UTIL_FF": "2",
+          "LUT": "10309",
+          "AVAIL_LUT": "63400",
+          "UTIL_LUT": "16",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
+          "URAM": "0",
+          "AVAIL_URAM": "0",
+          "UTIL_URAM": "0"
+        }
+      },
+      "print_Pipeline_loop1": {
+        "Latency": {
+          "LatencyBest": "",
+          "LatencyAvg": "",
+          "LatencyWorst": "",
+          "PipelineII": "",
+          "PipelineDepth": "",
+          "PipelineType": "no"
+        },
+        "Timing": {
+          "Target": "10.00",
+          "Uncertainty": "2.70",
+          "Estimate": "7.290"
+        },
+        "Loops": [{
+            "Name": "loop1",
+            "TripCount": "",
+            "Latency": "",
+            "PipelineII": "",
+            "PipelineDepth": ""
+          }],
+        "Area": {
+          "BRAM_18K": "0",
+          "AVAIL_BRAM": "270",
+          "UTIL_BRAM": "0",
+          "FF": "3344",
+          "AVAIL_FF": "126800",
+          "UTIL_FF": "2",
+          "LUT": "10349",
+          "AVAIL_LUT": "63400",
+          "UTIL_LUT": "16",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
+          "URAM": "0",
+          "AVAIL_URAM": "0",
+          "UTIL_URAM": "0"
+        }
+      },
+      "print": {
+        "Latency": {
+          "LatencyBest": "",
+          "LatencyAvg": "",
+          "LatencyWorst": "",
+          "PipelineII": "",
+          "PipelineDepth": "",
+          "PipelineType": "no"
+        },
+        "Timing": {
+          "Target": "10.00",
+          "Uncertainty": "2.70",
+          "Estimate": "7.290"
+        },
+        "Area": {
+          "BRAM_18K": "0",
+          "AVAIL_BRAM": "270",
+          "UTIL_BRAM": "0",
+          "FF": "3349",
+          "AVAIL_FF": "126800",
+          "UTIL_FF": "2",
+          "LUT": "10407",
+          "AVAIL_LUT": "63400",
+          "UTIL_LUT": "16",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
+          "URAM": "0",
+          "AVAIL_URAM": "0",
+          "UTIL_URAM": "0"
+        }
+      },
+      "print_2_Pipeline_loop1": {
+        "Latency": {
+          "LatencyBest": "",
+          "LatencyAvg": "",
+          "LatencyWorst": "",
+          "PipelineII": "",
+          "PipelineDepth": "",
+          "PipelineType": "no"
+        },
+        "Timing": {
+          "Target": "10.00",
+          "Uncertainty": "2.70",
+          "Estimate": "7.290"
+        },
+        "Loops": [{
+            "Name": "loop1",
+            "TripCount": "",
+            "Latency": "",
+            "PipelineII": "",
+            "PipelineDepth": ""
+          }],
+        "Area": {
+          "BRAM_18K": "0",
+          "AVAIL_BRAM": "270",
+          "UTIL_BRAM": "0",
+          "FF": "3311",
+          "AVAIL_FF": "126800",
+          "UTIL_FF": "2",
+          "LUT": "10247",
+          "AVAIL_LUT": "63400",
+          "UTIL_LUT": "16",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
+          "URAM": "0",
+          "AVAIL_URAM": "0",
+          "UTIL_URAM": "0"
+        }
+      },
+      "print_2": {
+        "Latency": {
+          "LatencyBest": "",
+          "LatencyAvg": "",
+          "LatencyWorst": "",
+          "PipelineII": "",
+          "PipelineDepth": "",
+          "PipelineType": "no"
+        },
+        "Timing": {
+          "Target": "10.00",
+          "Uncertainty": "2.70",
+          "Estimate": "7.290"
+        },
+        "Area": {
+          "BRAM_18K": "0",
+          "AVAIL_BRAM": "270",
+          "UTIL_BRAM": "0",
+          "FF": "3316",
+          "AVAIL_FF": "126800",
+          "UTIL_FF": "2",
+          "LUT": "10305",
+          "AVAIL_LUT": "63400",
+          "UTIL_LUT": "16",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
           "URAM": "0",
           "AVAIL_URAM": "0",
           "UTIL_URAM": "0"
@@ -468,21 +661,28 @@
         "Timing": {
           "Target": "10.00",
           "Uncertainty": "2.70",
-          "Estimate": "7.260"
+          "Estimate": "7.290"
         },
+        "Loops": [{
+            "Name": "VITIS_LOOP_18_1",
+            "TripCount": "4",
+            "Latency": "",
+            "PipelineII": "",
+            "PipelineDepth": ""
+          }],
         "Area": {
           "BRAM_18K": "0",
           "AVAIL_BRAM": "270",
           "UTIL_BRAM": "0",
-          "DSP": "68",
-          "AVAIL_DSP": "240",
-          "UTIL_DSP": "28",
-          "FF": "7436",
+          "FF": "10029",
           "AVAIL_FF": "126800",
-          "UTIL_FF": "5",
-          "LUT": "7622",
+          "UTIL_FF": "7",
+          "LUT": "31114",
           "AVAIL_LUT": "63400",
-          "UTIL_LUT": "12",
+          "UTIL_LUT": "49",
+          "DSP": "0",
+          "AVAIL_DSP": "240",
+          "UTIL_DSP": "0",
           "URAM": "0",
           "AVAIL_URAM": "0",
           "UTIL_URAM": "0"
@@ -493,7 +693,7 @@
   "GenerateBdFiles": "0",
   "GenData": {
     "DataVersion": "0.2",
-    "Time": "2022-05-06 09:25:38 -0700",
+    "Time": "2022-05-06 15:10:04 -0700",
     "ToolName": "vitis_hls",
     "ToolVersion": "2021.2"
   }

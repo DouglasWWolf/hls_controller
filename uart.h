@@ -3,7 +3,7 @@
 //=========================================================================================================
 #pragma once
 #include <stdint.h>
-//#include <hls_stream.h>
+#include <hls_stream.h>
 
 class CUART
 {
@@ -22,8 +22,13 @@ public:
     void    write_char(const char    c);
     void    write_byte(const uint8_t c);
 
+    // Writes a carriage-return and linefeed to the _xmit_fifo
+    void    write_crlf();
+
+protected:
+
     // This FIFO connects to a fifo_to_uart module
-    //?hls::stream<uint8_t> _xmit_fifo;
+    hls::stream<uint8_t> _xmit_fifo;
 
 
 };

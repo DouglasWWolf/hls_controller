@@ -13,6 +13,7 @@ open_solution "solution1" -flow_target vivado
 set_part {xc7a100t-csg324-1}
 create_clock -period 10 -name default
 config_export -display_name hls_controller -format ip_catalog -output C:/fpga/ip_repo/hls_controller.zip -rtl verilog
+config_unroll -tripcount_threshold 1
 source "./hls_controller/solution1/directives.tcl"
 csim_design -clean
 csynth_design

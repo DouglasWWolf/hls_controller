@@ -2,8 +2,7 @@
 // uart.cpp - Implements a mechanism for interfacing to a UART
 //=========================================================================================================
 #include "uart.h"
-//#include <hls_stream.h>
-#include <stdio.h>
+
 
 
 //=========================================================================================================
@@ -12,12 +11,13 @@
 void CUART::print(const char fmt[128], uint32_t v0, uint32_t v1, uint32_t v2, uint32_t v3)
 {
     const uint32_t v[] = { v0, v1, v2, v3 };
-    uint8_t value_index = 0;
+    uint8_t i, value_index = 0;
+    
 
     loop1: for (uint8_t input_count = 0; input_count < 128; ++input_count)
     {
         #pragma HLS pipeline off
-        #pragma HLS pipeline ii=3
+        #pragma HLS pipeline ii=2
         
         // Fetch the next input character
         char c = *fmt++;
@@ -25,17 +25,14 @@ void CUART::print(const char fmt[128], uint32_t v0, uint32_t v1, uint32_t v2, ui
         // If we've hit the end of the format string, we're done
         if (c == 0) break;
 
-        // Else, if the format wants '\n', output CR then LF
         if (c == '\n')
         {
-            #pragma HLS protocol
-            write_char('\r');
-            write_char('\n');
+            write_crlf();
             continue;
-        }
+        } 
 
         // Else, if the format is something other than '%' output it literally
-        if (c != '%')
+        else if (c != '%')
         {
             write_char(c);
             continue;
@@ -64,9 +61,14 @@ void CUART::print(const char fmt[128], uint32_t v0, uint32_t v1, uint32_t v2, ui
             bool zero_fill = (*fmt == '0');
 
             // Find out how many characters should be output for the formatted value
-            loop3: while (*fmt >= '0' && *fmt <= '9')
+            // (i.e, decide up to three ASCII digits into a number)
+            loop3: for (i=0; i<3; ++i)
             {
-                width = width * 10 + (*fmt++ - '0');
+                #pragma HLS pipeline off
+                if (*fmt < '0' || *fmt  > '9') break;
+                width = (width << 3) + (width << 1);  // width = width * 10
+                width = width + *fmt - '0';
+                ++fmt;
             }
 
             // If there are no characters after the width specifier, we're done
@@ -121,7 +123,6 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     static const int BUFFER_WIDTH = 32;
     char    buffer[BUFFER_WIDTH];
     bool    is_negative = false;
-    uint8_t i;
     char    digit;
 
     static const uint32_t powers[] =
@@ -146,7 +147,7 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     if (width > BUFFER_WIDTH - 1) width = BUFFER_WIDTH - 1;
 
     // Fill the output buffer with either spaces or ASCII zeros
-    for (i = 0; i < BUFFER_WIDTH - 1; ++i) buffer[i] = ' ';
+    for (uint8_t ia = 0; ia < BUFFER_WIDTH - 1; ++ia) buffer[ia] = ' ';
 
     // Ensure that there's a nul-byte at the end of the buffer
     buffer[BUFFER_WIDTH - 1] = 0;
@@ -180,8 +181,10 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
         else
         {
             digit = '0';
-            while (value >= power_of_ten)
+            loop7: for (int ix=0; ix<9; ++ix)
             {
+                #pragma HLS pipeline off
+                if (value < power_of_ten) break;
                 ++digit;
                 value -= power_of_ten;
             }
@@ -220,10 +223,10 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     }
 
     // And write the characters to the UART
-    loop2: for (i=0; i<string_length; ++i)
+    loop2: for (uint8_t ib=0; ib<string_length; ++ib)
     {
         #pragma HLS pipeline off
-        char c = buffer[msd_index + i];
+        char c = buffer[msd_index + ib];
         write_char(c);        
     }
 }
@@ -324,7 +327,24 @@ void CUART::write_char(const char c)
 
 void CUART::write_byte(const uint8_t c)
 {
-    //_xmit_fifo.write(c);
-	printf("%c", c);
+    _xmit_fifo.write(c);
+}
+//=========================================================================================================
+
+
+//=========================================================================================================
+// write_crlf() - Writes a carriage-return and linefeed to FIFO that feeds the UART
+//=========================================================================================================
+void CUART::write_crlf()
+{
+    for (int i=0; i<2; ++i)
+    {
+        #pragma HLS pipeline off
+        switch(i)
+        {
+            case 0: write_char('\r'); break;
+            case 1: write_char('\n'); break;    
+        }
+    }    
 }
 //=========================================================================================================
