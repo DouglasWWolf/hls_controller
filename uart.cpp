@@ -4,21 +4,20 @@
 #include "uart.h"
 
 
-
 //=========================================================================================================
-// uprint() - Analog of C function printf().  Supports %d, %i, %u, %c, %x %X
+// print() - Analog of C function printf().  Supports %d, %i, %u, %c, %x %X
 //=========================================================================================================
 void CUART::print(const char fmt[128], uint32_t v0, uint32_t v1, uint32_t v2, uint32_t v3)
 {
     const uint32_t v[] = { v0, v1, v2, v3 };
     uint8_t i, value_index = 0;
     
-
-    loop1: for (uint8_t input_count = 0; input_count < 128; ++input_count)
+    // Loop through each character of the input string...
+    for (uint8_t input_count = 0; input_count < 128; ++input_count)
     {
+        // Pipelining this loop will result in timing violations
         #pragma HLS pipeline off
-        #pragma HLS pipeline ii=2
-        
+
         // Fetch the next input character
         char c = *fmt++;
 
@@ -61,11 +60,10 @@ void CUART::print(const char fmt[128], uint32_t v0, uint32_t v1, uint32_t v2, ui
             bool zero_fill = (*fmt == '0');
 
             // Find out how many characters should be output for the formatted value
-            // (i.e, decide up to three ASCII digits into a number)
-            loop3: for (i=0; i<3; ++i)
+            // (i.e, decode up to three ASCII digits into a number)
+            for (i=0; i<3; ++i) 
             {
-                #pragma HLS pipeline off
-                if (*fmt < '0' || *fmt  > '9') break;
+                if (*fmt < '0' || *fmt > '9') break;
                 width = (width << 3) + (width << 1);  // width = width * 10
                 width = width + *fmt - '0';
                 ++fmt;
@@ -77,7 +75,7 @@ void CUART::print(const char fmt[128], uint32_t v0, uint32_t v1, uint32_t v2, ui
             // Fetch the C/C++ printf-style format specifier
             char format_specifier = *fmt++;
 
-            // Output a value converted to ASCII 
+            // Output a value converted to ASCII
             switch (format_specifier)
             {
             case 'd':
@@ -148,7 +146,7 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     if (width > BUFFER_WIDTH - 1) width = BUFFER_WIDTH - 1;
 
     // Fill the output buffer with either spaces or ASCII zeros
-    for (i = 0; i < BUFFER_WIDTH - 1; ++i) 
+    loop_C: for (i = 0; i < BUFFER_WIDTH - 1; ++i) 
     {
         #pragma HLS unroll
         buffer[i] = ' ';
@@ -172,23 +170,22 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     uint8_t msd_index = 0;
 
     // Loop through each power of 10...
-    loop1: for (uint8_t pow_idx = 0; pow_idx < MAX_DIGITS; ++pow_idx)
+    for (uint8_t pow_idx = 0; pow_idx < MAX_DIGITS; ++pow_idx)
     {
-        // Don't let HLS pipeline this loop, it has to proceed in the specified sequence
-        #pragma HLS pipeline off
-
         // This is the current power of 10 that we are working with
         uint32_t power_of_ten = powers[pow_idx];
 
+        // Find out if we're processing the rightmost digit
+        bool is_rightmost_digit = (power_of_ten == 1);
+
         // Determine the ASCII digit that corresponds to this power of ten
-        if (power_of_ten == 1)
+        if (is_rightmost_digit)
             digit = '0' + value;
         else
         {
             digit = '0';
-            loop7: for (i=0; i<9; ++i)
+            for (i=0; i<9; ++i)
             {
-                #pragma HLS pipeline off
                 if (value < power_of_ten) break;
                 ++digit;
                 value -= power_of_ten;
@@ -199,7 +196,7 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
         if (msd_index == 0)
         {
             // If this digit is 0 and we're not outputting the 1's place, we'll output a space
-            if (digit == '0' && power_of_ten != 1) digit = ' ';
+            if (digit == '0' && !is_rightmost_digit) digit = ' ';
 
             // Otherwise, we have just encountered the first significant digit
             else
@@ -228,9 +225,8 @@ void CUART::write_dec(uint32_t value, bool is_signed, uint8_t width)
     }
 
     // And write the characters to the UART
-    loop2: for (i=0; i<string_length; ++i)
+    for (i=0; i<string_length; ++i)
     {
-        #pragma HLS pipeline off
         char c = buffer[msd_index + i];
         write_char(c);        
     }
@@ -264,7 +260,11 @@ void CUART::write_hex(uint32_t value, bool zero_fill, bool uppercase, uint8_t wi
     if (width > BUFFER_WIDTH - 1) width = BUFFER_WIDTH - 1;
 
     // Fill the output buffer with either spaces or ASCII zeros
-    for (i = 0; i < BUFFER_WIDTH - 1; ++i) buffer[i] = fill_char;
+    for (i = 0; i < BUFFER_WIDTH - 1; ++i)
+    {
+        #pragma HLS unroll
+        buffer[i] = fill_char;
+    }
 
     // Ensure that there's a nul-byte at the end of the buffer
     buffer[BUFFER_WIDTH - 1] = 0;
@@ -278,9 +278,6 @@ void CUART::write_hex(uint32_t value, bool zero_fill, bool uppercase, uint8_t wi
     // Loop through each power of 10...
     for (int digit_index = 0; digit_index < MAX_DIGITS; ++digit_index)
     {
-        // Don't let HLS pipeline this loop, it has to proceed in the specified sequence
-        #pragma HLS pipeline off
-
         // Fetch the nybble that corresponds to this digit
         uint8_t nybble = (value >> shift[digit_index]) & 0xF;
 
@@ -312,9 +309,8 @@ void CUART::write_hex(uint32_t value, bool zero_fill, bool uppercase, uint8_t wi
     }
 
     // And write the characters to the UART
-    loop2: for (i = 0; i < string_length; ++i)
+    for (i = 0; i < string_length; ++i)
     {
-        #pragma HLS pipeline off
         char c = buffer[msd_index + i];
         write_char(c);
     }
@@ -344,7 +340,6 @@ void CUART::write_crlf()
 {
     for (int i=0; i<2; ++i)
     {
-        #pragma HLS pipeline off
         switch(i)
         {
             case 0: write_char('\r'); break;
